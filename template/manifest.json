@@ -1,0 +1,30 @@
+{
+  "syncable_paths": [
+    ".gitignore",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "CODEX.md",
+    "GEMINI.md",
+    "GROK.md",
+    "OPENCODE.md",
+    "Makefile",
+    "README.md",
+    "SETUP.md",
+    "WORKSPACE.md",
+    "scripts",
+    "templates"
+  ],
+  "bootstrap_only_paths": [
+    "custom/AGENTS.md",
+    "custom/README.md",
+    "custom/agents/.gitkeep",
+    "custom/status/README.md",
+    "custom/status/.gitkeep",
+    "custom/scripts/.gitkeep",
+    "projects/.gitkeep"
+  ],
+  "preserve_roots": [
+    "custom",
+    "projects"
+  ]
+}

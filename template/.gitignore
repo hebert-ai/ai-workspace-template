@@ -1,0 +1,15 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*
+*.log
+tmp/
+.tmp/
+.workspace-template/
+projects/*
+!projects/.gitkeep
+custom/.env
+custom/.env.*

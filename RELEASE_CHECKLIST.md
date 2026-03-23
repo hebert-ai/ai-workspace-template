@@ -30,6 +30,7 @@
 ## Tooling
 
 - run `python3 scripts/template_ops.py validate`
+- run `bash scripts/e2e-validate.sh`
 - run `python3 scripts/template_ops.py bootstrap /tmp/ai-workspace-template-release-check --dry-run`
 - run a real bootstrap to a temp directory and verify the generated workspace shape
 - run `python3 scripts/template_ops.py sync <temp-workspace> --dry-run`

@@ -40,6 +40,8 @@ It should not attempt to merge arbitrary user edits automatically. The first imp
 - sync records per-file template state in `.workspace-template/state.json`
 - sync reports stale formerly-managed files that are no longer in the current manifest
 - dry-run is supported for bootstrap and sync
+- bootstrap-only seeds under `custom/` remain user-managed and are preserved during forced bootstrap runs
+- validation checks the manifest contract and sync-managed surface, but does not require every bootstrap-only seed to still exist in older workspaces
 
 ## Current Upgrade Flow
 

@@ -166,6 +166,9 @@ def bootstrap(target_root: Path, dry_run: bool, force: bool) -> int:
     state = {"version": 1, "managed_files": {}}
     for source, rel in files:
         target = target_root / rel
+        if force and target.exists() and rel.startswith("custom/"):
+            print(f"preserve: {target}")
+            continue
         action = "overwrite" if target.exists() else "create"
         print(f"{action}: {target}")
         copy_file(source, target, dry_run=dry_run)
@@ -270,11 +273,6 @@ def validate(target_root: Path | None) -> int:
             path = target_root / rel
             if not path.exists():
                 errors.append(f"missing instance path: {path}")
-
-        for rel in manifest.get("bootstrap_only_paths", []):
-            path = target_root / rel
-            if not path.exists():
-                errors.append(f"missing bootstrap path: {path}")
 
         state_path = target_root / INSTANCE_STATE_FILE
         if state_path.exists():

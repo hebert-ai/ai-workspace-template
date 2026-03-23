@@ -17,8 +17,8 @@ This repository is a portable workspace instance for planning, project bootstrap
 - creates `venv/` if it does not exist
 - ensures `projects/`, `templates/`, and `scripts/` are present
 - ensures `custom/` subdirectories are present
-- seeds `custom/status/` for user-managed portfolio tracking
-- seeds starter files for project inventory and priorities under `custom/status/`
+- seeds `custom/status/` for user-managed portfolio tracking when missing
+- seeds starter files for project inventory and priorities under `custom/status/` when missing
 - leaves project-specific implementation to project folders
 - provides reproducible commands through `Makefile`
 

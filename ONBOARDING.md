@@ -68,7 +68,13 @@ Recommended flow:
 
 1. pull or fetch changes in `ai-workspace-template`
 2. review what changed in the canonical template
-3. run sync against the personal workspace repo
+3. run sync from the template repo against the personal workspace repo, for example:
+
+```bash
+python3 scripts/template_ops.py sync ~/ai-workspace --dry-run
+python3 scripts/template_ops.py sync ~/ai-workspace
+```
+
 4. inspect `create`, `update`, `conflict`, and `stale` output carefully
 5. use `--force` only when the user intends to overwrite divergence
 

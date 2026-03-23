@@ -50,7 +50,8 @@ If this project is published, the recommended public repo name is `ai-workspace-
 1. Review [ARCHITECTURE.md](ARCHITECTURE.md) for the ownership model and sync boundaries.
 2. Follow [ONBOARDING.md](ONBOARDING.md) to create a personal workspace repo from this template.
 3. Use the generated workspace’s `make setup`, `make new-project`, and `python3 scripts/clone-project.py` commands to start using it.
-4. Before publishing a release, run through [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md).
+4. Review [ROADMAP.md](ROADMAP.md) for future improvements and open product decisions.
+5. Before publishing a release, run through [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md).
 
 ## What This Repo Owns
 

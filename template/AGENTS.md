@@ -6,7 +6,7 @@ This repository is a workspace instance created from a shared template. Use it f
 
 Read in order before substantial work:
 
-1. this file
+1. `AGENTS.md` (this file)
 2. `WORKSPACE.md`
 3. `custom/AGENTS.md` if it exists and contains user-specific overrides
 4. project-local agent files only after entering a project under `projects/`

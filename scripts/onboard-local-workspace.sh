@@ -10,6 +10,7 @@ WORKSPACE_REPO=""
 GITHUB_USER=""
 OWNER=""
 RUN_SETUP=true
+RUN_CHECK=true
 DRY_RUN=false
 ASSUME_YES=false
 SKIP_CUSTOM=false
@@ -36,6 +37,7 @@ Options:
   --template-repo OWNER/REPO   Template repo used when creating the workspace repo.
                                Default: hebert-ai/ai-workspace-template
   --skip-setup                 Do not run scripts/setup-workspace.sh in the new workspace.
+  --skip-check                 Do not run make check in the new workspace.
   --skip-custom                Do not migrate custom/.
   --skip-projects              Do not migrate projects/.
   --yes                        Skip confirmation prompts.
@@ -162,6 +164,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --skip-setup)
       RUN_SETUP=false
+      shift
+      ;;
+    --skip-check)
+      RUN_CHECK=false
       shift
       ;;
     --skip-custom)
@@ -310,6 +316,11 @@ if [[ "${RUN_SETUP}" == true ]]; then
   run_cmd bash "${WORKSPACE_PATH}/scripts/setup-workspace.sh"
 fi
 
+if [[ "${RUN_CHECK}" == true ]]; then
+  log "Running workspace validation"
+  run_cmd make -C "${WORKSPACE_PATH}" check
+fi
+
 cat <<EOF
 
 Workspace onboarding complete.
@@ -325,6 +336,5 @@ Backup path:
 
 Recommended next steps:
   cd ${WORKSPACE_PATH}
-  make check
   git status --short
 EOF

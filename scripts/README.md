@@ -9,6 +9,7 @@ Current scripts:
 - `validate-template.sh [--target <path>]`: validate the template payload and optional instance
 - `e2e-validate.sh`: run end-to-end validation against a temporary generated workspace
 - `onboard-local-workspace.sh`: back up an existing local workspace, create or clone a user workspace repo from the template, migrate `custom/` and `projects/`, and run setup
+- `onboard-local-workspace.sh` also runs `make check` by default after setup
 - `template_ops.py`: shared implementation used by the shell wrappers
 
 Standalone use:

@@ -40,6 +40,7 @@ That flow can:
 - clone the new workspace repo
 - migrate `custom/` and `projects/`
 - run the generated workspace setup script
+- run `make check` automatically unless explicitly skipped
 
 For the example above:
 

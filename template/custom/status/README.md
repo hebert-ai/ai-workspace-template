@@ -4,8 +4,8 @@ Use this directory for user-managed portfolio tracking across projects.
 
 Suggested contents:
 
-- a project inventory file
-- current priorities
+- `projects.md` for a project inventory
+- `priorities.md` for current focus and ordering
 - active work queues
 - weekly or milestone status notes
 - cross-project blockers and dependencies

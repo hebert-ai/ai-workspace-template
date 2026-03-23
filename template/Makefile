@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: setup new-project check handoff-project
+.PHONY: setup new-project onboard-project check handoff-project
 
 setup:
 	bash scripts/setup-workspace.sh
@@ -12,10 +12,19 @@ new-project:
 	fi
 	python3 scripts/new-project.py "$(NAME)" "$(or $(GOAL),Define initial project goal.)"
 
+onboard-project:
+	@if [[ -z "$(SLUG)" ]]; then \
+		echo 'Usage: make onboard-project SLUG="project-slug" NAME="Optional Project Name" GOAL="Initial goal"'; \
+		exit 1; \
+	fi
+	python3 scripts/onboard-project.py "$(SLUG)" $(if $(NAME),--name "$(NAME)") --goal "$(or $(GOAL),Document the initial project goal.)"
+
 check:
 	bash -n scripts/setup-workspace.sh
 	bash -n scripts/new-project.sh
 	python3 -m py_compile scripts/new-project.py
+	python3 -m py_compile scripts/onboard-project.py
+	python3 -m py_compile scripts/project_scaffold.py
 	python3 -m py_compile scripts/clone-project.py
 	python3 -m py_compile scripts/handoff-project.py
 

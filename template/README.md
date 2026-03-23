@@ -8,7 +8,7 @@ This repository is a workspace instance created from the AI Workspace Template. 
 2. Run `make setup`.
 3. Read `AGENTS.md`, `WORKSPACE.md`, and `custom/AGENTS.md` if you use local overrides.
 4. Create a project with `make new-project NAME="Project Name" GOAL="Initial goal"`.
-5. Or clone an existing project with `python3 scripts/clone-project.py <repo-url>`.
+5. Or clone and onboard an existing project with `python3 scripts/clone-project.py <repo-url>`.
 6. Keep project-specific work inside `projects/<slug>/`.
 7. When you switch into a project directory, use that project’s local agent files as the source of truth.
 
@@ -32,6 +32,8 @@ Do not use the root as the main place to build a single product. Once work becom
 - `WORKSPACE.md`: operating model and handoff rules
 - `custom/`: user-managed overrides and helper files
 - `custom/status/`: user-managed project inventory and priority notes
+- `custom/status/projects.md`: starter project inventory
+- `custom/status/priorities.md`: starter cross-project priorities
 - `templates/project-starter/`: starter files for new projects
 - `scripts/`: bootstrap, scaffold, and clone commands
 
@@ -39,7 +41,8 @@ Do not use the root as the main place to build a single product. Once work becom
 
 - `make setup`: prepare the local workspace
 - `make new-project NAME="AirBnb Buddy" GOAL="Plan the MVP"`: scaffold a new project
-- `python3 scripts/clone-project.py git@github.com:example/example-repo.git`: clone an existing project
+- `python3 scripts/clone-project.py git@github.com:example/example-repo.git`: clone and onboard an existing project
+- `make onboard-project SLUG="existing-project"`: seed missing local project files into an already cloned repo
 - `make check`: validate workspace scripts
 - `make handoff-project SLUG="airbnb-buddy"`: create `HANDOFF.md` in the project
 

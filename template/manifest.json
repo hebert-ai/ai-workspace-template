@@ -18,6 +18,8 @@
     "custom/AGENTS.md",
     "custom/README.md",
     "custom/agents/.gitkeep",
+    "custom/status/projects.md",
+    "custom/status/priorities.md",
     "custom/status/README.md",
     "custom/status/.gitkeep",
     "custom/scripts/.gitkeep",

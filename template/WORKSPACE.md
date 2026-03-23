@@ -21,7 +21,7 @@ Before doing meaningful work from this directory:
 - project intake and prioritization
 - user-maintained portfolio status tracking across projects
 - creation of new project folders and starter agent files
-- cloning existing project repos into `projects/`
+- cloning and onboarding existing project repos into `projects/`
 - shared templates and checklists
 - user-specific overrides under `custom/`
 - lightweight scripts that bootstrap or scaffold the workspace
@@ -54,6 +54,15 @@ When asked to start a new project from the root workspace:
 5. prefer `make new-project` or `python3 scripts/new-project.py` over manual scaffolding
 
 Suggested slug format: lowercase kebab-case, for example `AirBnb Buddy` -> `airbnb-buddy`.
+
+## Existing Project Onboarding Rule
+
+When asked to bring an existing repo into the workspace:
+
+1. clone the repo into `projects/<project-slug>/`
+2. seed missing local project files from `templates/project-starter/`
+3. never overwrite existing project files automatically during onboarding
+4. prefer `python3 scripts/clone-project.py <repo-url>` or `make onboard-project SLUG="<project-slug>"` over manual copying
 
 ## Customization Rules
 

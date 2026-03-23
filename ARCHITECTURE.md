@@ -1,5 +1,12 @@
 # Architecture
 
+This file describes the structural boundaries of the product.
+
+Related docs:
+
+- `OPERATING_MODEL.md`: how the workflow is intended to work
+- `TOOLING_MODEL.md`: how this repo implements that workflow
+
 ## Ownership Model
 
 The template system has three ownership zones:

@@ -94,6 +94,19 @@ Candidates:
 - document default commit and push timing clearly in starter files
 - add optional helper tooling later if the documented workflow proves stable
 
+### 6. Add Explicit Client Profiles
+
+Goal:
+Support different LLM client setups without making the generated workspace depend on whatever happens to be installed in `PATH`.
+
+Candidates:
+
+- add a user-declared client profile under `custom/`
+- keep workspace scaffolding deterministic by default
+- let users explicitly opt into a reduced set of client adapter files later
+- avoid environment-sniffing as the primary source of truth
+- connect declared client profiles to future adapter-consistency tests
+
 ## Open Product Decisions
 
 - Should sync state include an explicit template version in addition to file hashes?
@@ -109,6 +122,7 @@ Candidates:
 - optional GitHub issue or project templates for the product repo
 - additional vendor-specific agent adapters if there is clear demand
 - richer reporting or JSON output from sync tooling
+- PATH-based automatic client detection for scaffolding
 
 ## Release Milestones
 

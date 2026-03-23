@@ -53,6 +53,13 @@ If this project is published, the recommended public repo name is `ai-workspace-
 4. Review [ROADMAP.md](ROADMAP.md) for future improvements and open product decisions.
 5. Before publishing a release, run through [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md).
 
+## Repository Files
+
+- [LICENSE](LICENSE): repository license
+- [CONTRIBUTING.md](CONTRIBUTING.md): contribution and validation expectations
+- [SECURITY.md](SECURITY.md): vulnerability reporting guidance
+- [.github/workflows/validate.yml](.github/workflows/validate.yml): CI validation workflow
+
 ## What This Repo Owns
 
 - template-managed root files

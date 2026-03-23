@@ -1,0 +1,26 @@
+name: Validate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate template contract
+        run: python3 scripts/template_ops.py validate
+
+      - name: Run end-to-end validation
+        run: bash scripts/e2e-validate.sh

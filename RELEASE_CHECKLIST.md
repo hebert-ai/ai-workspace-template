@@ -19,6 +19,8 @@
 - review `ARCHITECTURE.md` for ownership boundaries and invariants
 - review `MIGRATIONS.md` for current sync behavior and upgrade flow
 - review `ONBOARDING.md` for a realistic user setup path
+- review `CONTRIBUTING.md` for contributor expectations
+- review `SECURITY.md` for vulnerability reporting guidance
 - review generated workspace docs under `template/`
 
 ## Template Contract
@@ -48,6 +50,7 @@
 
 ## Public Release Hygiene
 
+- confirm `LICENSE` is present and matches the intended public licensing choice
 - confirm example commands and paths are valid
 - confirm there are no org-internal assumptions left in public-facing docs
 - confirm there are no secrets, machine-local paths, or private repo references in the template payload

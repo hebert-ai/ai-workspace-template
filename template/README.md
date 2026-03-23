@@ -45,6 +45,7 @@ Each project starter includes a local `ROADMAP.md` so project-specific milestone
 - `make new-project NAME="AirBnb Buddy" GOAL="Plan the MVP"`: scaffold a new project
 - `python3 scripts/clone-project.py git@github.com:example/example-repo.git`: clone and onboard an existing project
 - `make onboard-project SLUG="existing-project"`: seed missing local project files into an already cloned repo
+- `make prepare-project-repo SLUG="existing-project"`: add missing GitHub-facing stub files to a project repo
 - `make check`: validate workspace scripts
 - `make handoff-project SLUG="airbnb-buddy"`: create `HANDOFF.md` in the project
 

@@ -39,6 +39,11 @@ Keep project-specific decisions in this directory unless they affect multiple pr
 - if the project has tests or checks, run the relevant ones before committing when practical
 - if a change affects roadmap direction, update `./ROADMAP.md` or `./PROJECT.md` in the same commit
 
+## GitHub Preparation
+
+- if this project should become a more formal GitHub repo, use the workspace command that prepares missing stub files for `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, and optional CI
+- keep that preparation step explicit rather than coupling it to ordinary project scaffolding
+
 ## Project Setup
 
 - Project name: `<PROJECT_NAME>`

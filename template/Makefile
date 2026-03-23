@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: setup new-project onboard-project check handoff-project
+.PHONY: setup new-project onboard-project prepare-project-repo check handoff-project
 
 setup:
 	bash scripts/setup-workspace.sh
@@ -19,11 +19,19 @@ onboard-project:
 	fi
 	python3 scripts/onboard-project.py "$(SLUG)" $(if $(NAME),--name "$(NAME)") --goal "$(or $(GOAL),Document the initial project goal.)"
 
+prepare-project-repo:
+	@if [[ -z "$(SLUG)" ]]; then \
+		echo 'Usage: make prepare-project-repo SLUG="project-slug" NAME="Optional Project Name" LICENSE="Apache-2.0|MIT|none"'; \
+		exit 1; \
+	fi
+	python3 scripts/prepare-project-repo.py "$(SLUG)" $(if $(NAME),--name "$(NAME)") --license "$(or $(LICENSE),Apache-2.0)" $(if $(NO_CI),--no-ci)
+
 check:
 	bash -n scripts/setup-workspace.sh
 	bash -n scripts/new-project.sh
 	python3 -m py_compile scripts/new-project.py
 	python3 -m py_compile scripts/onboard-project.py
+	python3 -m py_compile scripts/prepare-project-repo.py
 	python3 -m py_compile scripts/project_scaffold.py
 	python3 -m py_compile scripts/clone-project.py
 	python3 -m py_compile scripts/handoff-project.py

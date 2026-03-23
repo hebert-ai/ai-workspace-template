@@ -64,6 +64,15 @@ When asked to bring an existing repo into the workspace:
 3. never overwrite existing project files automatically during onboarding
 4. prefer `python3 scripts/clone-project.py <repo-url>` or `make onboard-project SLUG="<project-slug>"` over manual copying
 
+## GitHub Preparation Rule
+
+When a project repo should be prepared for GitHub publication or more formal collaboration:
+
+1. use `make prepare-project-repo SLUG="<project-slug>"` or `python3 scripts/prepare-project-repo.py "<project-slug>"`
+2. create missing governance stubs such as `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, and optional CI workflow files
+3. never overwrite existing repo-governance files automatically
+4. keep this separate from ordinary project scaffolding and onboarding
+
 ## Default Project Workflow Rule
 
 For consistency across projects created or managed from this workspace:

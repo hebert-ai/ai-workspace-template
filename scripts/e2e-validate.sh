@@ -28,22 +28,22 @@ assert_contains() {
   fi
 }
 
-echo "[1/7] Validate template contract"
+echo "[1/8] Validate template contract"
 python3 "${ROOT_DIR}/scripts/template_ops.py" validate
 
-echo "[2/7] Bootstrap temp workspace and validate instance"
+echo "[2/8] Bootstrap temp workspace and validate instance"
 python3 "${ROOT_DIR}/scripts/template_ops.py" bootstrap "${WORKSPACE_DIR}" >/dev/null
 python3 "${ROOT_DIR}/scripts/template_ops.py" validate --target "${WORKSPACE_DIR}" >/dev/null
 
-echo "[3/7] Run generated workspace checks"
+echo "[3/8] Run generated workspace checks"
 make -C "${WORKSPACE_DIR}" check >/dev/null
 
-echo "[4/7] Scaffold a fresh project"
+echo "[4/8] Scaffold a fresh project"
 python3 "${WORKSPACE_DIR}/scripts/new-project.py" "Fresh Project" "Ship initial plan" >/dev/null
 assert_file "${WORKSPACE_DIR}/projects/fresh-project/PROJECT.md"
 assert_contains "${WORKSPACE_DIR}/projects/fresh-project/PROJECT.md" "Ship initial plan"
 
-echo "[5/7] Clone and onboard an existing repo"
+echo "[5/8] Clone and onboard an existing repo"
 git init -b main "${SAMPLE_REPO_DIR}" >/dev/null
 printf '# Sample Repo\n' > "${SAMPLE_REPO_DIR}/README.md"
 printf '# Existing Agent Rules\n' > "${SAMPLE_REPO_DIR}/AGENTS.md"
@@ -55,7 +55,15 @@ assert_file "${WORKSPACE_DIR}/projects/sample-repo/PROJECT.md"
 assert_contains "${WORKSPACE_DIR}/projects/sample-repo/AGENTS.md" "# Existing Agent Rules"
 assert_contains "${WORKSPACE_DIR}/projects/sample-repo/PROJECT.md" "Adopt workspace conventions"
 
-echo "[6/7] Verify setup restores missing status starter files"
+echo "[6/8] Prepare project repo stubs without overwriting existing files"
+printf '# Existing security policy\n' > "${WORKSPACE_DIR}/projects/sample-repo/SECURITY.md"
+python3 "${WORKSPACE_DIR}/scripts/prepare-project-repo.py" sample-repo --license Apache-2.0 >/dev/null
+assert_file "${WORKSPACE_DIR}/projects/sample-repo/LICENSE"
+assert_file "${WORKSPACE_DIR}/projects/sample-repo/CONTRIBUTING.md"
+assert_file "${WORKSPACE_DIR}/projects/sample-repo/.github/workflows/validate.yml"
+assert_contains "${WORKSPACE_DIR}/projects/sample-repo/SECURITY.md" "# Existing security policy"
+
+echo "[7/8] Verify setup restores missing status starter files"
 rm -f \
   "${WORKSPACE_DIR}/custom/status/README.md" \
   "${WORKSPACE_DIR}/custom/status/projects.md" \
@@ -65,7 +73,7 @@ assert_file "${WORKSPACE_DIR}/custom/status/README.md"
 assert_file "${WORKSPACE_DIR}/custom/status/projects.md"
 assert_file "${WORKSPACE_DIR}/custom/status/priorities.md"
 
-echo "[7/7] Verify legacy-safe validation and custom preservation on forced bootstrap"
+echo "[8/8] Verify legacy-safe validation and custom preservation on forced bootstrap"
 printf 'user-owned\n' > "${WORKSPACE_DIR}/custom/AGENTS.md"
 rm -f "${WORKSPACE_DIR}/custom/status/projects.md" "${WORKSPACE_DIR}/custom/status/priorities.md"
 python3 "${ROOT_DIR}/scripts/template_ops.py" validate --target "${WORKSPACE_DIR}" >/dev/null

@@ -46,6 +46,7 @@ Example: planning a release calendar belongs here; changing `server.js` for one 
 - `python3 scripts/new-project.py "Project Name" "Initial goal"`: scaffold a local project
 - `python3 scripts/clone-project.py git@github.com:example/example-repo.git`: clone and onboard an existing project locally
 - `python3 scripts/onboard-project.py "project-slug"`: seed missing local project files into an existing project repo
+- `python3 scripts/prepare-project-repo.py "project-slug"`: seed missing GitHub-facing stub files into a project repo
 - `python -m venv venv`: recreate the shared local virtual environment
 
 ## Style & Validation

@@ -64,6 +64,8 @@ Candidates:
 - expand `scripts/e2e-validate.sh` with more edge cases
 - test conflict behavior more explicitly
 - test sync update behavior against older recorded hashes
+- add tests that exercise the core LLM client adapters and verify they load the intended root, custom, and project-local guidance consistently
+- verify agent-adapter behavior stays aligned across supported clients rather than drifting silently
 - consider a CI workflow once the repo is pushed publicly
 
 ### 4. Tighten Public Onboarding
@@ -79,6 +81,18 @@ Candidates:
   - run a dedicated bootstrap command
 - document the recommended GitHub setup path after first publish
 - add a public quickstart that assumes no prior context
+
+### 5. Standardize Project Workflow Conventions
+
+Goal:
+Reduce decision fatigue by giving every generated project the same default structure for roadmap tracking, local commits, and GitHub pushes.
+
+Candidates:
+
+- keep project-local roadmap tracking in `projects/<slug>/ROADMAP.md`
+- keep cross-project prioritization in `custom/status/`
+- document default commit and push timing clearly in starter files
+- add optional helper tooling later if the documented workflow proves stable
 
 ## Open Product Decisions
 

@@ -37,6 +37,8 @@ Do not use the root as the main place to build a single product. Once work becom
 - `templates/project-starter/`: starter files for new projects
 - `scripts/`: bootstrap, scaffold, and clone commands
 
+Each project starter includes a local `ROADMAP.md` so project-specific milestones and backlog items have one default home.
+
 ## Common Commands
 
 - `make setup`: prepare the local workspace

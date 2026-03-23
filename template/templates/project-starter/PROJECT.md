@@ -15,6 +15,7 @@
 - root workspace policy: `../../AGENTS.md`
 - root operating model: `../../WORKSPACE.md`
 - local user overrides: `../../custom/AGENTS.md`
+- project-local roadmap: `./ROADMAP.md`
 
 ## First Decisions
 

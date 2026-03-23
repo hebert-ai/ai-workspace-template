@@ -64,6 +64,17 @@ When asked to bring an existing repo into the workspace:
 3. never overwrite existing project files automatically during onboarding
 4. prefer `python3 scripts/clone-project.py <repo-url>` or `make onboard-project SLUG="<project-slug>"` over manual copying
 
+## Default Project Workflow Rule
+
+For consistency across projects created or managed from this workspace:
+
+1. track project-local roadmap work in `projects/<slug>/ROADMAP.md`
+2. track cross-project status and prioritization in `custom/status/`
+3. commit locally at coherent task boundaries
+4. push to GitHub when work should be backed up, reviewed, shared, or continued elsewhere
+
+This workspace should reduce decision fatigue by keeping those defaults consistent unless a specific project has a strong reason to differ.
+
 ## Customization Rules
 
 - keep root docs generic and template-managed

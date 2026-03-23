@@ -43,6 +43,7 @@ That flow can:
 - migrate `custom/` and `projects/`
 - run the generated workspace setup script
 - run `make check` automatically unless explicitly skipped
+- stop with recovery instructions if the chosen GitHub repo already contains the wrong contents
 
 For the example above:
 

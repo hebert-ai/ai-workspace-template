@@ -10,6 +10,7 @@ Current scripts:
 - `e2e-validate.sh`: run end-to-end validation against a temporary generated workspace
 - `onboard-local-workspace.sh`: back up an existing local workspace, create or clone a private user workspace repo, seed it from `template/`, migrate `custom/` and `projects/`, and run setup
 - `onboard-local-workspace.sh` also runs `make check` by default after setup
+- if the chosen workspace repo already contains the wrong contents, onboarding stops with recovery instructions instead of overwriting it
 - `template_ops.py`: shared implementation used by the shell wrappers
 
 Standalone use:

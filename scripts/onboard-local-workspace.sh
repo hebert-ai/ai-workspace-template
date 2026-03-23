@@ -55,6 +55,20 @@ fail() {
   exit 1
 }
 
+fail_with_recovery() {
+  local message="$1"
+  shift
+  printf '%s\n' "${message}" >&2
+  if [[ $# -gt 0 ]]; then
+    printf '\nRecovery steps:\n' >&2
+    while [[ $# -gt 0 ]]; do
+      printf '  %s\n' "$1" >&2
+      shift
+    done
+  fi
+  exit 1
+}
+
 run_cmd() {
   if [[ "${DRY_RUN}" == true ]]; then
     printf '+'
@@ -342,9 +356,19 @@ else
       run_cmd git -C "${WORKSPACE_PATH}" push -u origin main
     fi
   elif repo_looks_like_product_repo "${WORKSPACE_PATH}"; then
-    fail "Workspace repo ${WORKSPACE_REPO} contains the product repo layout, not the generated workspace payload. Recreate or clean that repo before onboarding."
+    fail_with_recovery \
+      "Workspace repo ${WORKSPACE_REPO} contains the product repo layout, not the generated workspace payload." \
+      "Delete or recreate ${WORKSPACE_REPO} as an empty private repo." \
+      "Keep the local backup at ${BACKUP_PATH} if one was created." \
+      "Rerun this script from ${WORKSPACE_PATH} after the remote repo is empty." \
+      "If needed, reuse the backup explicitly with: bash /tmp/onboard-local-workspace.sh --migrate-from ${BACKUP_PATH}"
   else
-    fail "Workspace repo ${WORKSPACE_REPO} is not empty and does not look like a generated workspace. Refusing to overwrite it."
+    fail_with_recovery \
+      "Workspace repo ${WORKSPACE_REPO} is not empty and does not look like a generated workspace." \
+      "Review the existing repo contents before rerunning onboarding." \
+      "Either empty or replace ${WORKSPACE_REPO}, or choose a different workspace repo name with --workspace-repo." \
+      "Keep the local backup at ${BACKUP_PATH} if one was created." \
+      "Rerun onboarding only after the remote repo is confirmed safe to seed."
   fi
 fi
 

@@ -101,19 +101,19 @@ choose_owner() {
     choices+=("${value}")
   done < <(list_orgs)
 
-  log "Choose where to create the workspace repo:"
+  log "Choose where to create the workspace repo:" >&2
   for value in "${choices[@]}"; do
     if [[ "${value}" == "${personal}" ]]; then
-      printf '  %d) %s (personal)\n' "${index}" "${value}"
+      printf '  %d) %s (personal)\n' "${index}" "${value}" >&2
     else
-      printf '  %d) %s (org)\n' "${index}" "${value}"
+      printf '  %d) %s (org)\n' "${index}" "${value}" >&2
     fi
     index=$((index + 1))
   done
 
   while true; do
-    read -r -p "Owner [1-${#choices[@]}]: " selection
-    [[ "${selection}" =~ ^[0-9]+$ ]] || { log "Enter a number."; continue; }
+    read -r -p "Owner [1-${#choices[@]}]: " selection >&2
+    [[ "${selection}" =~ ^[0-9]+$ ]] || { log "Enter a number." >&2; continue; }
     if (( selection >= 1 && selection <= ${#choices[@]} )); then
       printf '%s\n' "${choices[$((selection - 1))]}"
       return 0

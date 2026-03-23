@@ -50,7 +50,7 @@ If this project is published, the recommended public repo name is `ai-workspace-
 1. Review [OPERATING_MODEL.md](OPERATING_MODEL.md) for the tool-agnostic working model.
 2. Review [TOOLING_MODEL.md](TOOLING_MODEL.md) for how this repository implements that model.
 3. Review [ARCHITECTURE.md](ARCHITECTURE.md) for the ownership model and sync boundaries.
-4. Follow [ONBOARDING.md](ONBOARDING.md) to create a personal workspace repo from this template.
+4. Follow [ONBOARDING.md](ONBOARDING.md) to create a personal workspace repo from this template, including the standalone `onboard-local-workspace.sh` flow.
 5. Use the generated workspace’s `make setup`, `make new-project`, and `python3 scripts/clone-project.py` commands to start using it.
 6. Review [ROADMAP.md](ROADMAP.md) for future improvements and open product decisions.
 7. Before publishing a release, run through [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md).
@@ -61,6 +61,7 @@ If this project is published, the recommended public repo name is `ai-workspace-
 - [CONTRIBUTING.md](CONTRIBUTING.md): contribution and validation expectations
 - [SECURITY.md](SECURITY.md): vulnerability reporting guidance
 - [.github/workflows/validate.yml](.github/workflows/validate.yml): CI validation workflow
+- [scripts/onboard-local-workspace.sh](scripts/onboard-local-workspace.sh): local workspace bootstrap and migration utility with interactive owner selection and private repo creation
 
 ## What This Repo Owns
 

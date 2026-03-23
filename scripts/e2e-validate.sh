@@ -30,6 +30,7 @@ assert_contains() {
 
 echo "[1/8] Validate template contract"
 python3 "${ROOT_DIR}/scripts/template_ops.py" validate
+bash -n "${ROOT_DIR}/scripts/onboard-local-workspace.sh"
 
 echo "[2/8] Bootstrap temp workspace and validate instance"
 python3 "${ROOT_DIR}/scripts/template_ops.py" bootstrap "${WORKSPACE_DIR}" >/dev/null

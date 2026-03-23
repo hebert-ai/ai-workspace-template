@@ -18,6 +18,37 @@ Create a personal AI workspace repo from `ai-workspace-template` without confusi
 4. Review the root guidance files and the user-managed `custom/` area.
 5. Start creating or cloning project repos under `projects/`.
 
+## Recommended Automated Setup
+
+If you already have an older local workspace and want a safer migration path, use the product utility from the directory that should become the workspace root:
+
+```bash
+mkdir -p /home/ryan/ai
+cd /home/ryan/ai
+curl -fsSL -o /tmp/onboard-local-workspace.sh \
+  https://raw.githubusercontent.com/hebert-ai/ai-workspace-template/main/scripts/onboard-local-workspace.sh
+bash /tmp/onboard-local-workspace.sh --github-user ryanhebert --dry-run
+bash /tmp/onboard-local-workspace.sh --github-user ryanhebert
+```
+
+That flow can:
+
+- derive the workspace name from the current directory
+- list the authenticated user and available GitHub orgs for owner selection
+- create a private GitHub workspace repo from the template if needed
+- back up an existing local workspace
+- clone the new workspace repo
+- migrate `custom/` and `projects/`
+- run the generated workspace setup script
+
+For the example above:
+
+- current directory: `/home/ryan/ai`
+- derived workspace name: `ai`
+- derived repo name: `workspace-ryanhebert-ai`
+- if you select `hebert-ai` as the owner, the resulting repo becomes:
+  `hebert-ai/workspace-ryanhebert-ai`
+
 ## One Simple Way To Do It
 
 From the template product repo:
@@ -31,6 +62,8 @@ git add .
 git commit -m "Initialize AI workspace"
 bash scripts/setup-workspace.sh
 ```
+
+That manual flow is still valid, but the scripted onboarding path is preferred once you want a repeatable migration utility.
 
 Then review:
 

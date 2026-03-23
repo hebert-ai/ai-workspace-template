@@ -46,6 +46,7 @@ User-managed:
 - `python3 scripts/template_ops.py sync <target>`
 - `python3 scripts/template_ops.py validate [--target <path>]`
 - `bash scripts/e2e-validate.sh`
+- `bash scripts/onboard-local-workspace.sh`
 
 ### Generated Workspace Commands
 

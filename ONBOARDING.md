@@ -12,7 +12,7 @@ Create a personal AI workspace repo from `ai-workspace-template` without confusi
 
 ## Initial Setup
 
-1. Clone or copy the generated workspace payload into a new personal repo.
+1. Seed a new personal repo with the generated workspace payload from `template/`.
 2. Initialize that workspace as the user’s own Git repo.
 3. Run the workspace setup commands.
 4. Review the root guidance files and the user-managed `custom/` area.
@@ -27,15 +27,17 @@ mkdir -p /home/ryan/ai
 cd /home/ryan/ai
 curl -fsSL -o /tmp/onboard-local-workspace.sh \
   https://raw.githubusercontent.com/hebert-ai/ai-workspace-template/main/scripts/onboard-local-workspace.sh
-bash /tmp/onboard-local-workspace.sh --github-user ryanhebert --dry-run
-bash /tmp/onboard-local-workspace.sh --github-user ryanhebert
+bash /tmp/onboard-local-workspace.sh --dry-run
+bash /tmp/onboard-local-workspace.sh
 ```
 
 That flow can:
 
 - derive the workspace name from the current directory
+- derive the GitHub username from the authenticated `gh` session
 - list the authenticated user and available GitHub orgs for owner selection
-- create a private GitHub workspace repo from the template if needed
+- create a private empty GitHub workspace repo if needed
+- fetch the canonical product repo and seed the user repo from `template/`
 - back up an existing local workspace
 - clone the new workspace repo
 - migrate `custom/` and `projects/`

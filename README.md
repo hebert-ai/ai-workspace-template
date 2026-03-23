@@ -61,7 +61,7 @@ If this project is published, the recommended public repo name is `ai-workspace-
 - [CONTRIBUTING.md](CONTRIBUTING.md): contribution and validation expectations
 - [SECURITY.md](SECURITY.md): vulnerability reporting guidance
 - [.github/workflows/validate.yml](.github/workflows/validate.yml): CI validation workflow
-- [scripts/onboard-local-workspace.sh](scripts/onboard-local-workspace.sh): local workspace bootstrap and migration utility with interactive owner selection and private repo creation
+- [scripts/onboard-local-workspace.sh](scripts/onboard-local-workspace.sh): local workspace bootstrap and migration utility with interactive owner selection, private repo creation, and seeding from `template/`
 
 ## What This Repo Owns
 

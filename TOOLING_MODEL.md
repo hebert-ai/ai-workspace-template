@@ -62,6 +62,8 @@ The tooling maps to the operating model like this:
 
 - start a new local project:
   `new-project.py`
+- create or migrate a user workspace repo from the product repo:
+  `onboard-local-workspace.sh`
 - bring in an existing repo:
   `clone-project.py` or `onboard-project.py`
 - prepare a project repo for GitHub-facing collaboration:
@@ -84,6 +86,7 @@ Agent-specific files are adapters to that order, not alternate policy systems.
 ## Safety Rules In The Tooling
 
 - sync never manages `custom/` or `projects/`
+- standalone workspace onboarding seeds from `template/`, not from a copy of the full product repo
 - onboarding never overwrites existing project files automatically
 - project-repo preparation never overwrites existing governance files automatically
 - bootstrap-only seeds remain user-managed after creation

@@ -34,7 +34,7 @@ Options:
                                <parent>/<workspace-name>-backup-<timestamp>
   --migrate-from PATH          Source path to copy custom/ and projects/ from.
                                If omitted and a backup is created, the backup path is used.
-  --template-repo OWNER/REPO   Template repo used when creating the workspace repo.
+  --template-repo OWNER/REPO   Product repo used as the source of template/.
                                Default: hebert-ai/ai-workspace-template
   --skip-setup                 Do not run scripts/setup-workspace.sh in the new workspace.
   --skip-check                 Do not run make check in the new workspace.
@@ -87,6 +87,21 @@ list_orgs() {
 
 repo_exists() {
   gh repo view "$1" >/dev/null 2>&1
+}
+
+repo_has_workspace_payload() {
+  local repo_dir="$1"
+  [[ -f "${repo_dir}/scripts/setup-workspace.sh" && -f "${repo_dir}/WORKSPACE.md" ]]
+}
+
+repo_looks_like_product_repo() {
+  local repo_dir="$1"
+  [[ -f "${repo_dir}/ARCHITECTURE.md" && -d "${repo_dir}/template" ]]
+}
+
+repo_is_effectively_empty() {
+  local repo_dir="$1"
+  [[ ! -f "${repo_dir}/README.md" && ! -f "${repo_dir}/WORKSPACE.md" && ! -d "${repo_dir}/scripts" ]]
 }
 
 choose_owner() {
@@ -201,6 +216,8 @@ require_command gh
 require_command cp
 require_command mv
 require_command mkdir
+require_command mktemp
+require_command rm
 require_command bash
 require_command date
 require_command sed
@@ -274,8 +291,8 @@ confirm "Continue?" || fail "Aborted."
 if repo_exists "${WORKSPACE_REPO}"; then
   log "Workspace repo already exists on GitHub: ${WORKSPACE_REPO}"
 else
-  log "Creating private workspace repo from template: ${WORKSPACE_REPO}"
-  run_cmd gh repo create "${WORKSPACE_REPO}" --private --template "${TEMPLATE_REPO}"
+  log "Creating private empty workspace repo: ${WORKSPACE_REPO}"
+  run_cmd gh repo create "${WORKSPACE_REPO}" --private
 fi
 
 if [[ -e "${WORKSPACE_PATH}" ]]; then
@@ -292,6 +309,44 @@ run_cmd mkdir -p "${workspace_parent}"
 
 log "Cloning workspace repo to: ${WORKSPACE_PATH}"
 run_cmd git clone "https://github.com/${WORKSPACE_REPO}.git" "${WORKSPACE_PATH}"
+
+if [[ "${DRY_RUN}" == true ]]; then
+  log "Fetching template payload from product repo: ${TEMPLATE_REPO}"
+  run_cmd git clone --depth 1 "https://github.com/${TEMPLATE_REPO}.git" "/tmp/ai-workspace-template-seed.<dry-run>"
+  log "Seeding generated workspace payload from template/"
+  run_cmd cp -R "/tmp/ai-workspace-template-seed.<dry-run>/template/." "${WORKSPACE_PATH}/"
+  run_cmd git -C "${WORKSPACE_PATH}" branch -M main
+  run_cmd git -C "${WORKSPACE_PATH}" add .
+  run_cmd git -C "${WORKSPACE_PATH}" -c user.name="${GITHUB_USER}" -c user.email="${GITHUB_USER}@users.noreply.github.com" commit -m "Initialize AI workspace from template"
+  run_cmd git -C "${WORKSPACE_PATH}" push -u origin main
+else
+  if repo_has_workspace_payload "${WORKSPACE_PATH}"; then
+    log "Workspace repo already contains the generated workspace payload"
+  elif repo_is_effectively_empty "${WORKSPACE_PATH}"; then
+    temp_template_checkout="$(mktemp -d /tmp/ai-workspace-template-seed.XXXXXX)"
+    cleanup_seed_checkout() {
+      rm -rf "${temp_template_checkout}"
+    }
+    trap cleanup_seed_checkout EXIT
+
+    log "Fetching template payload from product repo: ${TEMPLATE_REPO}"
+    run_cmd git clone --depth 1 "https://github.com/${TEMPLATE_REPO}.git" "${temp_template_checkout}"
+
+    log "Seeding generated workspace payload from template/"
+    run_cmd cp -R "${temp_template_checkout}/template/." "${WORKSPACE_PATH}/"
+
+    run_cmd git -C "${WORKSPACE_PATH}" branch -M main
+    run_cmd git -C "${WORKSPACE_PATH}" add .
+    if ! git -C "${WORKSPACE_PATH}" diff --cached --quiet; then
+      run_cmd git -C "${WORKSPACE_PATH}" -c user.name="${GITHUB_USER}" -c user.email="${GITHUB_USER}@users.noreply.github.com" commit -m "Initialize AI workspace from template"
+      run_cmd git -C "${WORKSPACE_PATH}" push -u origin main
+    fi
+  elif repo_looks_like_product_repo "${WORKSPACE_PATH}"; then
+    fail "Workspace repo ${WORKSPACE_REPO} contains the product repo layout, not the generated workspace payload. Recreate or clean that repo before onboarding."
+  else
+    fail "Workspace repo ${WORKSPACE_REPO} is not empty and does not look like a generated workspace. Refusing to overwrite it."
+  fi
+fi
 
 if [[ -n "${MIGRATE_FROM}" ]]; then
   if [[ "${DRY_RUN}" != true ]]; then
